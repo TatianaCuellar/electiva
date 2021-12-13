@@ -1,0 +1,163 @@
+<div class="container" >
+  <form [formGroup]="forms">
+    <div class="card" *ngIf="step === 1">
+      <div class="header">Datos personales</div>
+      <div class="body">
+        <h5>
+          Para iniciar con la PQR, ingrese los siguiente datos
+        </h5>
+        <input formControlName="nombre" type="text" class="form-control" id="nombre" placeholder="Ingrese su numbre completo">
+        <input formControlName="direccion" type="text" class="form-control" id="direccion" placeholder="Ingrese su dirección">
+        <input formControlName="telefono" type="text" class="form-control" id="telefono" placeholder="Ingrese su telefono">
+        <input formControlName="email" type="email" class="form-control" id="email" placeholder="Ingrese su email">
+      </div>
+      <div class="footer">
+        <a class="next" (click)="changeStep('next')">Siguiente</a>
+      </div>
+    </div>
+    <div class="card" *ngIf="step === 2">
+      <div class="header">Definiendo solicitud</div>
+      <div class="body">
+        <h5>
+          Ahora definiremos el tipo de solicitud que deseas radicar
+        </h5>
+        <select formControlName="calidadDe" class="form-select" aria-label="En calidad de">
+          <option [selected]="true" hidden>En calidad de</option>
+          <option value="Persona Natural">Persona Natural</option>
+          <option value="Persona Jurídica">Persona Jurídica</option>
+        </select>
+        <label for="representacion">En representación de</label>
+        <textarea formControlName="representacionDe" name="representacion" id="representacion" cols="10" rows="5"  class="form-control" placeholder="Actuaciones realizadas (Que acciones hizo al respecto)"></textarea>
+      </div>
+      <div class="footer">
+        <a class="next"  (click)="changeStep('previous')">Atras</a>
+        <a class="next"  (click)="changeStep('next')">Siguiente</a>
+      </div>
+    </div>
+    <div class="card" *ngIf="step === 3">
+      <div class="header">Definiendo solicitud</div>
+      <div class="body">
+        <h5>
+          Ahora definiremos el tipo de solicitud que deseas radicar
+        </h5>
+        <select formControlName="respuestaEmail" class="form-select" aria-label="Desea recibir nuestra respuesta vía email">
+          <option [selected]="true" hidden>Desea recibir nuestra respuesta vía email</option>
+          <option value="Si">Si</option>
+          <option value="No">No</option>
+        </select>
+        <select formControlName="tiempo" class="form-select" aria-label="¿Cuál es el tiempo máximo qué tiene el área enlace para responder una PQR asignada?">
+          <option [selected]="true" hidden>¿Cuál es el tiempo máximo qué tiene el área enlace para responder una PQR asignada?</option>
+          <option value="Tres (3) días hábiles">Tres (3) días hábiles.</option>
+          <option value="Un (1) día hábil">Un (1) día hábil.</option>
+          <option value="Cinco (5) días hábiles">Cinco (5) días hábiles.</option>
+        </select>
+        <label for="quepasapqr">¿Qué pasa si no radico una Petición, Queja, Reclamo que recibí de un cliente?</label>
+        <textarea formControlName="quepasapqr" name="quepasapqr" id="quepasapqr" cols="10" rows="5"  class="form-control" placeholder="Escribe tu respuesta"></textarea>
+      </div>
+      <div class="footer">
+        <a class="next"  (click)="changeStep('previous')">Atras</a>
+        <a class="next"  (click)="changeStep('next')">Siguiente</a>
+      </div>
+    </div>
+    <div class="card" *ngIf="step === 4">
+      <div class="header">Cuestionario PQR</div>
+      <div class="body">
+        <h5>
+          Ahora necesitamos que respondas las siguientes preguntas
+        </h5>
+        <select formControlName="opcionRadicada" class="form-select" aria-label="¿Cuáles son las opciones para radicar una PQR si el cliente decide entregarle el requerimiento a usted como funcionario?">
+          <option [selected]="true" hidden>¿Cuáles son las opciones para radicar una PQR si el cliente decide entregarle el requerimiento a usted como funcionario?</option>
+          <option value="IntraB y Línea Familiar: 6258100">IntraB y Línea Familiar: 6258100</option>
+          <option value="IntraB">IntraB</option>
+          <option value="Correo electrónico: pqr.canal@constructorabolivar.com y en la Oficina de Gratamira">Correo electrónico: pqr.canal@constructorabolivar.com y en la Oficina de Gratamira</option>
+        </select>
+        <select formControlName="tiempoEntrega" class="form-select" aria-label="¿Cuál es el tiempo total para entregar la respuesta al cliente?">
+          <option [selected]="true" hidden>¿Cuál es el tiempo total para entregar la respuesta al cliente?</option>
+          <option value="Cuatro (4) días hábiles.">Cuatro (4) días hábiles.</option>
+          <option value="Quince (15) días hábiles.">Quince (15) días hábiles.</option>
+          <option value="Diez (10) días hábiles.">Diez (10) días hábiles.</option>
+        </select>
+        <select formControlName="comoSabeCliente" class="form-select" aria-label="¿Cómo sabe el cliente la fecha en la cual recibirá la respuesta a su solicitud radicada?">
+          <option [selected]="true" hidden>¿Cómo sabe el cliente la fecha en la cual recibirá la respuesta a su solicitud radicada?</option>
+          <option value="Mensaje de texto">Mensaje de texto.</option>
+          <option value="Número de caso">Número de caso.</option>
+          <option value="Consulta en la página web">Consulta en la página web.</option>
+        </select>
+      </div>
+      <div class="footer">
+        <a class="next" (click)="changeStep('previous')">Atras</a>
+        <a class="next" (click)="changeStep('next'); guardar()">Guardar</a>
+      </div>
+    </div>
+    <div class="card" *ngIf="step === 5">
+      <div class="body finisih">
+        <h1>Gracias por realizar la petición</h1>
+        <a (click)="changeStep('next')">Ver petición</a>
+      </div>
+    </div>
+  </form>
+  <div #detailPage *ngIf="step === 6">
+    <div class="container-pdf">
+      <div class="header">Petición</div>
+      <div class="body">
+        <h4>Datos personales</h4>
+        <div class="row">
+          <div class="col-5">
+            <span class="label">Nombre completo</span>
+            <span class="value">{{valueForm?.nombre}}</span>
+          </div>
+          <div class="col-5">
+            <span class="label">Dirección</span>
+            <span class="value">{{valueForm?.direccion}}</span>
+          </div>
+          <div class="col-5">
+            <span class="label">Telefono</span>
+            <span class="value">{{valueForm?.telefono}}</span>
+          </div>
+          <div class="col-5">
+            <span class="label">Email</span>
+            <span class="value">{{valueForm?.email}}</span>
+          </div>
+        </div>
+        <h4>Solicitud</h4>
+        <div class="row">
+          <div class="col-5">
+            <span class="label">En calidad de</span>
+            <span class="value">{{valueForm?.calidadDe}}</span>
+          </div>
+          <div class="col-5">
+            <span class="label">En representación de</span>
+            <span class="value">{{valueForm?.representacionDe}}</span>
+          </div>
+          <div class="col-12 column">
+            <span class="label">¿Cuál es el tiempo máximo qué tiene el área enlace para responder una PQR asignada?</span>
+            <span class="value">{{valueForm?.tiempo}}</span>
+          </div>
+          <div class="col-12 column">
+            <span class="label">¿Qué pasa si no radico una Petición, Queja, Reclamo que recibí de un cliente?</span>
+            <span class="value">{{valueForm?.quepasapqr}}</span>
+          </div>
+          <div class="col-12 column">
+            <span class="label">¿Cuáles son las opciones para radicar una PQR si el cliente decide entregarle el requerimiento a usted como funcionario?</span>
+            <span class="value">{{valueForm?.opcionRadicada}}</span>
+          </div>
+          <div class="col-12 column">
+            <span class="label">¿Cómo sabe el cliente la fecha en la cual recibirá la respuesta a su solicitud radicada?</span>
+            <span class="value">{{valueForm?.tiempoEntrega}}</span>
+          </div>
+          <div class="col-12 column">
+            <span class="label">¿Cómo sabe el cliente la fecha en la cual recibirá la respuesta a su solicitud radicada?</span>
+            <span class="value">{{valueForm?.comoSabeCliente}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <a (click)="generarPDF()">
+          Descargar PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
